@@ -11,6 +11,8 @@ import Register from "./pages/register.jsx";
 import EmailSend from "./pages/email-request.js";
 import ResetPassword from "./pages/reset-password.js";
 import CreateArticle from "./pages/create-article.js";
+import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   useEffect(() => {
@@ -75,5 +77,22 @@ export default function App() {
       v7_normalizeFormMethod: true,
     },
   });
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
+    </>
+  );
 }

@@ -1,22 +1,38 @@
 import React, { useState } from "react";
 import ApiCall from "../services/getArticles";
 import { Link, useNavigate } from "react-router-dom";
+import { Bounce, toast } from "react-toastify";
 
 const EmailSend = () => {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [isLoading, setisLoading] = useState(false);
   const navigate = useNavigate();
   const HandleEmailSubmit = async (e) => {
     e.preventDefault();
+    setisLoading(true);
     if (!email) {
-      setError("email is not written");
+      setisLoading(false);
+      toast.error("email is required");
       return;
     }
     try {
       const response = await ApiCall.emailSend({ email });
-      console.log(response);
+      toast.success(response.message, {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+      setEmail("");
+      setisLoading(false);
     } catch (error) {
-      console.log(error.message);
+      setisLoading(false);
+      toast.error(error.message);
     }
   };
 
@@ -44,13 +60,12 @@ const EmailSend = () => {
         />
         <div className="flex justify-between items-end">
           <button className="block text-white bg-red-500 mt-2 rounded-md active:text-green-500 py-1 px-3">
-            send
+            {isLoading ? "loading..." : "send"}
           </button>
           <Link className="hover:underline hover:text-red-400 " to="/login">
             back to login page
           </Link>
         </div>
-        {error && <span className="text-red-600">{error}</span>}
       </form>
     </div>
   );

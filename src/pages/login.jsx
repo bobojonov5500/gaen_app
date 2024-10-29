@@ -45,11 +45,11 @@ export default function Login() {
 
     try {
       const response = await loginUser(email, password);
-      console.log(response)
       if (response && response.access_token) {
         localStorage.setItem("token", response.access_token);
         localStorage.setItem("user_full_name", response.full_name);
         localStorage.setItem("user_email", response.email);
+        localStorage.setItem("refresh_token", response.refresh_token);
         navigate("/main");
       } else {
         throw new Error("No token received from server");

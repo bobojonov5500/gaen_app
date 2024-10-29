@@ -139,7 +139,7 @@ export default function Register() {
       >
         <h1 className="register_text protest_riot">GAEN</h1>
       </div>
-      <div className="register_page_shadow_right md:w-2/4 bg-white flex flex-col items-center h-[100vh] justify-center">
+      <div className="register_page_shadow_right md:w-2/4 bg-white flex flex-col overflow-y-auto items-center h-[100vh] justify-center">
         <div data-aos="fade-down" className="w-[85%] md:w-[70%]">
           <h1 className="mb-8 text-3xl font-[600]">Create an account</h1>
           <form>

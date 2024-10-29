@@ -10,7 +10,7 @@ import Navbar from "../components/navbar/navbar";
 export default function MainPage2() {
   const [page, setPage] = useState(1);
   const [pagiError, setPagiError] = useState("");
-
+  const [filter, setFilter] = useState("");
   const [hasMore, setHasMore] = useState(true);
   const loadMoreArticles = () => {
     if (hasMore) {
@@ -30,6 +30,7 @@ export default function MainPage2() {
               <div className="flex items-center w-[50%] md:w-[80%] pl-3 md:pl-5">
                 <img className="mr-1" src={SearchImage} alt="" />
                 <input
+                  onChange={(e) => setFilter(e.target.value)}
                   className="w-full  p-3.5  bg-transparent outline-none text-[#181818]"
                   type="text"
                   placeholder="Artist’s name"
@@ -47,6 +48,7 @@ export default function MainPage2() {
               hasMore={hasMore}
               setHasMore={setHasMore}
               setPagiError={setPagiError}
+              filter={filter}
             />
           </div>
           <div data-aos="fade-up" className="flex justify-center  mt-6">

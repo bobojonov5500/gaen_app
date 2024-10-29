@@ -1,12 +1,15 @@
-import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import IdCard from "../../assets/img/id.png";
 import Location from "../../assets/img/location.png";
-import MainPageImage from "../../assets/img/mainPageImage.png";
-import { useEffect } from "react";
 import ApiCall from "../../services/getArticles";
 
-export default function MainPageCard({ page, setHasMore, setPagiError }) {
+export default function MainPageCard({
+  page,
+  setHasMore,
+  setPagiError,
+  filter,
+}) {
   const [data, setData] = useState([]);
 
   const GetArts = async (page) => {
@@ -16,29 +19,36 @@ export default function MainPageCard({ page, setHasMore, setPagiError }) {
         setData((prevData) => [...prevData, ...response.results]);
       } else {
         setHasMore(false);
-        setPagiError(" No more articles available");
+        setPagiError("No more articles available");
       }
     } catch (error) {
       if (error.response && error.response.status === 404) {
         setHasMore(false);
-        setPagiError(" No more articles available");
+        setPagiError("No more articles available");
         console.error(error);
       } else {
         console.error(error);
       }
     }
   };
+
   useEffect(() => {
     GetArts(page);
   }, [page]);
 
-  if (!data.length) {
-    return <h2>not found</h2>;
+  const filteredData = data
+    .reverse()
+    .filter((item) =>
+      item.art_name.toLowerCase().includes(filter.toLowerCase())
+    );
+
+  if (filteredData.length === 0) {
+    return <h2>Not found</h2>;
   }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
-      {data.map((item, index) => (
+      {filteredData.map((item, index) => (
         <div
           data-aos="fade-up"
           key={index}

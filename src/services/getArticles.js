@@ -42,6 +42,19 @@ const ApiCall = {
     });
     return data;
   },
+  logOut: async (refresh_token, token) => {
+    const { data } = await axios.post(
+      "http://shaxzodbek-muxtorov.jprq.site/api/v1/auth/logout/",
+      refresh_token,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return data;
+  },
 };
 
 export default ApiCall;

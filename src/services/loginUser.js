@@ -11,9 +11,8 @@ const loginUser = async (email, password) => {
       "https://shaxzodbek-muxtorov.jprq.site/api/v1/auth/login/",
       payload
     );
-    console.log("Response from server:", response.data);
     return response.data;
-  } catch (error) { 
+  } catch (error) {
     throw error?.response?.data?.detail;
   }
 };

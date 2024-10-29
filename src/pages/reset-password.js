@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ApiCall from "../services/getArticles";
+import { Bounce, toast } from "react-toastify";
 
 const ResetPassword = () => {
   const { uid, token } = useParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
   const HandleResetPassword = async (e) => {
     const post = {
@@ -17,14 +17,25 @@ const ResetPassword = () => {
     };
     e.preventDefault();
     if (password !== confirmPassword) {
-      setError("do not match password");
+      toast.error("password do not match");
       return;
     }
     try {
       await ApiCall.resetPassword(post);
       navigate("/login");
+      toast.success("password successfully changed", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
   return (
@@ -63,7 +74,6 @@ const ResetPassword = () => {
         <button className="mt-2 px-3 py-1 bg-yellow-500 rounded-md active:text-red-600">
           reset password
         </button>
-        {error && <p className="text-red-500 mt-2">{error}</p>}
       </form>
     </div>
   );

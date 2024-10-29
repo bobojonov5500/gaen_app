@@ -20,31 +20,26 @@ export default function ArtworkDetails() {
     queryFn: () => ApiCall.GetArticle(slug),
     refetchOnWindowFocus: false,
   });
-  console.log(data);
-  const [selectedImage, setSelectedImage] = useState(1);
-  const totalImages = 3; // Total number of images you have
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSelectedImage((prevImage) => (prevImage % totalImages) + 1);
-    }, 5000); // Change image every 5 seconds
-
-    return () => clearInterval(interval); // Cleanup the interval on component unmount
-  }, []);
-
+  if (isLoading) {
+    <h3 className="text-white text-center">Loading...</h3>;
+    return;
+  }
+  if (error) {
+    <h3>{error.message}</h3>;
+    return;
+  }
   return (
     <>
       <div className="pb-20">
         <div className="main-container">
           <Navbar />
 
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl   mx-auto">
             <Link to={"/main"}>
               <div
                 data-aos="fade-down"
                 className="flex gap-3 items-center mt-16"
               >
-                <img src={Strelka} alt="" />
                 <h2 className="text-[#D9D9D9] text-2xl font-[600] underline">
                   Back
                 </h2>
@@ -52,49 +47,17 @@ export default function ArtworkDetails() {
             </Link>
 
             <div data-aos="fade-up">
-              {selectedImage === 1 && (
-                <img
-                  className="w-full object-cover h-[380px] rounded-xl mt-5"
-                  src={MainPageImage1}
-                  alt="Main Image 1"
-                />
-              )}
-              {selectedImage === 2 && (
-                <img
-                  className="w-full object-cover h-[380px] rounded-xl mt-5"
-                  src={MainPageImage2}
-                  alt="Main Image 2"
-                />
-              )}
-              {selectedImage === 3 && (
-                <img
-                  className="w-full object-cover h-[380px] rounded-xl mt-5"
-                  src={MainPageImage3}
-                  alt="Main Image 3"
-                />
-              )}
+              <img
+                classname="w-full object-cover h-[380px] rounded-xl mt-5"
+                src={`https://shaxzodbek-muxtorov.jprq.site${data?.art_img}`}
+                alt="Main Image 1"
+              />
             </div>
 
-            <div data-aos="fade-up" className="flex gap-2 mt-4 justify-center">
-              <button
-                className={`h-[5px] w-[74px] rounded-md ${
-                  selectedImage === 1 ? "bg-[#D9D9D9]" : "bg-[#d9d9d95a]"
-                }`}
-                onClick={() => setSelectedImage(1)}
-              ></button>
-              <button
-                className={`h-[5px] w-[74px] rounded-md ${
-                  selectedImage === 2 ? "bg-[#D9D9D9]" : "bg-[#d9d9d95a]"
-                }`}
-                onClick={() => setSelectedImage(2)}
-              ></button>
-              <button
-                className={`h-[5px] w-[74px] rounded-md ${
-                  selectedImage === 3 ? "bg-[#D9D9D9]" : "bg-[#d9d9d95a]"
-                }`}
-                onClick={() => setSelectedImage(3)}
-              ></button>
-            </div>
+            <div
+              data-aos="fade-up"
+              className="flex gap-2 mt-4 justify-center"
+            ></div>
 
             <div data-aos="fade-down" className="mt-10 md:mt-0">
               <h1 className="text-[30px] md:text-[42px] font-[600] text-white">
@@ -102,17 +65,15 @@ export default function ArtworkDetails() {
               </h1>
               <div className="flex gap-2 items-center text-[#E4E4E4] mt-5">
                 <img src={IdCard} alt="" />
-                <p className="text-[12px] md:text-[16px]">
-                  {data?.user?.username}
-                </p>
+                <p className="text-[12px] md:text-[16px]">{data?.email}</p>
               </div>
               <div className="flex gap-2 items-center text-[#E4E4E4] mb-3 mt-4">
                 <img src={Location} alt="" />
-                <p className="text-[12px] md:text-[16px]">{data?.country}</p>
+                <p className=" text-[12px] md:text-[16px]">{data?.country}</p>
               </div>
 
               <div>
-                <p className="text-[18px] leading-normal md:text-3xl text-white font-[400] md:leading-[50px]">
+                <p className="text-[18px] break-all leading-normal md:text-3xl text-white font-[400] md:leading-[50px]">
                   {data?.description}
                 </p>
 
