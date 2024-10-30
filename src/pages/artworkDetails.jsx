@@ -21,7 +21,7 @@ export default function ArtworkDetails() {
     refetchOnWindowFocus: false,
   });
   if (isLoading) {
-    <h3 className="text-white text-center">Loading...</h3>;
+    <h3 className=" text-white text-center">Loading...</h3>;
     return;
   }
   if (error) {
@@ -61,7 +61,7 @@ export default function ArtworkDetails() {
 
             <div data-aos="fade-down" className="mt-10 md:mt-0">
               <h1 className="text-[30px] md:text-[42px] font-[600] text-white">
-                Amazing shows, events
+                {data?.title}
               </h1>
               <div className="flex gap-2 items-center text-[#E4E4E4] mt-5">
                 <img src={IdCard} alt="" />
