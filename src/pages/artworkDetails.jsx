@@ -38,9 +38,10 @@ export default function ArtworkDetails() {
             <Link to={"/main"}>
               <div
                 data-aos="fade-down"
-                className="flex gap-3 items-center mt-16"
+                className="flex mb-2 gap-3 items-center mt-16"
               >
-                <h2 className="text-[#D9D9D9] text-2xl font-[600] underline">
+                <img src={Strelka} alt="back" />
+                <h2 className=" text-[#D9D9D9] text-2xl font-[600] underline">
                   Back
                 </h2>
               </div>
