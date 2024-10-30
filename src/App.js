@@ -1,7 +1,11 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
 import React, { useEffect } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import MainPage from "./pages/aboutPage.jsx";
 import AdditionalPages from "./pages/additionalPages";
 import ArtworkDetails from "./pages/artworkDetails";
@@ -69,6 +73,10 @@ export default function App() {
     {
       path: "/create-article",
       element: <CreateArticle />,
+    },
+    {
+      path: "/about",
+      element: <Navigate to={"/"} />,
     },
   ];
 
