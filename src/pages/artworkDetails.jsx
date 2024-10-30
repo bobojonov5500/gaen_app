@@ -41,7 +41,7 @@ export default function ArtworkDetails() {
                 className="flex mb-2 gap-3 items-center mt-16"
               >
                 <img src={Strelka} alt="back" />
-                <h2 className=" text-[#D9D9D9] text-2xl font-[600] underline">
+                <h2 className=" text-[#D9D9D9] text-2xl font-[600] hover:underline">
                   Back
                 </h2>
               </div>
